@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "/EyWi/usNhjJVFeh9x7lR/kiP5D9FE9h6/9pYzZBDPOCABpIgFe9UWBGBxmv/EgpSTKFqC+DqP0DsvHXdx0doA==",
+  "success": true,
+  "projectFilePath": "C:\\ProvaAdmissionalApisul\\ProvaAdmissionalApisul.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\robso\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

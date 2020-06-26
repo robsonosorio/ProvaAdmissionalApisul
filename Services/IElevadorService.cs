@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace ProvaAdmissionalCSharpApisul
+namespace ProvaAdmissionalApisul.Services
 {
   public interface IElevadorService
   {
