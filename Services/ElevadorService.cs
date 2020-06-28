@@ -1,28 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ProvaAdmissionalApisul.Model;
 using Newtonsoft.Json;
 using System.IO;
-using System.Data;
-using System.ComponentModel;
-using System.Reflection;
-using Microsoft.VisualBasic;
 using System.Linq;
 
 namespace ProvaAdmissionalApisul.Services
 {
     public class ElevadorService : IElevadorService
     {
-        //Métodos para substituir repetições
-       
-        List<Respostas> respostas = new List<Respostas>();
-        
+        //Métodos para substituir algumas repetições
+        public List<Respostas> respostas = new List<Respostas>();
+
         public ElevadorService()
         {
             var json = File.ReadAllText(@"C:\ProvaAdmissionalApisul\input.json");
             respostas = JsonConvert.DeserializeObject<List<Respostas>>(json);
         }
-    
+
         public int[] contaUtilizacaoElevadores()
         {
             int[] frequenciaElevadores = new int[5];
@@ -112,115 +106,207 @@ namespace ProvaAdmissionalApisul.Services
             return frequenciaAndares;
         }
 
-        public float operacaoPercentual()
+        public int[] contaUtilizacaoPeriodo()
         {
-            throw new NotImplementedException();
+            int[] frequenciaPeriodo = new int[3];
+
+            foreach (var _respostas in respostas)
+            {
+                switch (_respostas.Turno)
+                {
+                    case 'M':
+                        frequenciaPeriodo[0]++;
+                        break;
+                    case 'V':
+                        frequenciaPeriodo[1]++;
+                        break;
+                    case 'N':
+                        frequenciaPeriodo[2]++;
+                        break;
+                }
+            }
+            return frequenciaPeriodo;
+
         }
 
-
+      
         //Métodos de implementação de IElevadorService
         public List<int> andarMenosUtilizado()
         {
-            int[] frequenciaAndares = contaUtilizacaoAndares();
+            var frequenciaAndares = contaUtilizacaoAndares();
             var andarMenosUtilizado = new List<int>();
             int[] andar = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 
-
-            var menosUtilizado = frequenciaAndares.Min();
-
             for (var i = 0; i < frequenciaAndares.Length; i++)
             {
-                if (menosUtilizado == frequenciaAndares[i])
+                if (frequenciaAndares.Min() == frequenciaAndares[i])
                 {
                     andarMenosUtilizado.Add(andar[i]);
                 }
             }
-            return andarMenosUtilizado;
-            
-        }            // <= [OK]
+            return andarMenosUtilizado;        
+        }            
 
         public List<char> elevadorMaisFrequentado()
         {
-            int[] frequenciaElevadores = contaUtilizacaoElevadores();
+            var frequenciaElevadores = contaUtilizacaoElevadores();
             var elevadoresMaisFrequentados = new List<char>();
             char[] elevador = { 'A', 'B', 'C', 'D', 'E' };
 
-            var maiorFrequencia = frequenciaElevadores.Max();
-            
-
             for (var i = 0; i < frequenciaElevadores.Length; i++)
             {
-                if (maiorFrequencia == frequenciaElevadores[i])
+                if (frequenciaElevadores.Max() == frequenciaElevadores[i])
                 {
                     elevadoresMaisFrequentados.Add(elevador[i]);
                 }
             }
             return elevadoresMaisFrequentados;
-        }      // <= [OK]
+        }      
 
         public List<char> periodoMaiorFluxoElevadorMaisFrequentado()
-        {
+        {          
+            var maiorPeriodoUtilizado = new List<char>();
+            char[] turno = { 'M', 'V', 'N' };
+            int[] quantidade = new int[3];
 
+            foreach (var periodo in respostas)
+            {
+                foreach (var elevador in elevadorMaisFrequentado())
+                {
+                    if (elevador == periodo.Elevador)
+                    {
+                        switch (periodo.Turno)
+                        {
+                            case 'M':
+                                quantidade[0]++;
+                                break;
+                            case 'V':
+                                quantidade[1]++;
+                                break;
+                            case 'N':
+                                quantidade[2]++;
+                                break;
 
+                        }  
+                    }
+                }
+            }
 
-            throw new NotImplementedException();
-        } 
+            for (var i = 0; i < quantidade.Length; i++)
+            {
+                if (quantidade.Max() == quantidade[i])
+                {
+                    maiorPeriodoUtilizado.Add(turno[i]);
+                }
+            }
+
+            return maiorPeriodoUtilizado;
+        }         
 
         public List<char> elevadorMenosFrequentado()
         {
-            int[] frequenciaElevadores = contaUtilizacaoElevadores();
+            var frequenciaElevadores = contaUtilizacaoElevadores();
             var elevadoresMenosFrequentados = new List<char>();
             char[] elevador = { 'A', 'B', 'C', 'D', 'E' };
 
-            var menorFrequencia = frequenciaElevadores.Min();
-
-
             for (var i = 0; i < frequenciaElevadores.Length; i++)
             {
-                if (menorFrequencia == frequenciaElevadores[i])
+                if (frequenciaElevadores.Min() == frequenciaElevadores[i])
                 {
                     elevadoresMenosFrequentados.Add(elevador[i]);
                 }
             }
             return elevadoresMenosFrequentados;
-
-        }      // <= [OK]
+        }      
 
         public List<char> periodoMenorFluxoElevadorMenosFrequentado()
         {
-            throw new NotImplementedException();
-        }
+            var menorPeriodoUtilizado = new List<char>();
+            char[] turno = { 'M', 'V', 'N' };
+            int[] quantidade = new int[3];
+
+            foreach (var periodo in respostas)
+            {
+                foreach (var elevador in elevadorMenosFrequentado())
+                {
+                    if (elevador == periodo.Elevador)
+                    {
+                        switch (periodo.Turno)
+                        {
+                            case 'M':
+                                quantidade[0]++;
+                                break;
+                            case 'V':
+                                quantidade[1]++;
+                                break;
+                            case 'N':
+                                quantidade[2]++;
+                                break;
+
+                        }
+                    }
+                }
+            }
+
+            for (var i = 0; i < quantidade.Length; i++)
+            {
+                if (quantidade.Min() == quantidade[i])
+                {
+                    menorPeriodoUtilizado.Add(turno[i]);
+                }
+            }
+            return menorPeriodoUtilizado;
+        }         
 
         public List<char> periodoMaiorUtilizacaoConjuntoElevadores()
         {
-            throw new NotImplementedException();
-        }
+            var frequenciaTurno = contaUtilizacaoPeriodo();
+            var maiorPeriodoUtilizado = new List<char>();
+            char[] turno = { 'M', 'V', 'N' };
+
+            for (var i = 0; i < frequenciaTurno.Length; i++)
+            {
+                if (frequenciaTurno.Max() == frequenciaTurno[i])
+                {
+                     maiorPeriodoUtilizado.Add(turno[i]);
+                }
+            }
+            return maiorPeriodoUtilizado;
+        }          
 
         public float percentualDeUsoElevadorA()
         {
-            throw new NotImplementedException();
-        }
+            var numeroElevadores = contaUtilizacaoElevadores();
+            var operacaoPercentual = ((float)numeroElevadores[0] / respostas.Count) * 100;
+            return operacaoPercentual;
+        }          
 
         public float percentualDeUsoElevadorB()
         {
-            throw new NotImplementedException();
-        }
+            var numeroElevadores = contaUtilizacaoElevadores();
+            var operacaoPercentual = ((float)numeroElevadores[1] / respostas.Count) * 100;
+            return operacaoPercentual;
+        }        
 
         public float percentualDeUsoElevadorC()
         {
-            throw new NotImplementedException();
-        }
+            var numeroElevadores = contaUtilizacaoElevadores();
+            var operacaoPercentual = ((float)numeroElevadores[2] / respostas.Count) * 100;
+            return operacaoPercentual;
+        }         
 
         public float percentualDeUsoElevadorD()
         {
-            throw new NotImplementedException();
-        }
+            var numeroElevadores = contaUtilizacaoElevadores();
+            var operacaoPercentual = ((float)numeroElevadores[3] / respostas.Count) * 100;
+            return operacaoPercentual;
+        }          
 
         public float percentualDeUsoElevadorE()
         {
-
-            throw new NotImplementedException();
-        }
-
+            var numeroElevadores = contaUtilizacaoElevadores();
+            var operacaoPercentual = ((float)numeroElevadores[4] / respostas.Count) * 100;
+            return operacaoPercentual;
+        }          
     }
 }

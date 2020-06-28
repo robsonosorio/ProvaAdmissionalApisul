@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using ProvaAdmissionalApisul.Services;
-using ProvaAdmissionalApisul.Model;
-using System.IO;
-using Newtonsoft.Json;
-using System.Linq;
-using System.ComponentModel;
 
 namespace ProvaAdmissionalApisul
 {
@@ -15,24 +9,46 @@ namespace ProvaAdmissionalApisul
         {
             ElevadorService elevadorService = new ElevadorService();
 
-            var elevadoresMaisFrequentados = elevadorService.elevadorMaisFrequentado();
-            var elevadoresMenosFrequentados = elevadorService.elevadorMenosFrequentado();
-            var andarMenosUtilizado = elevadorService.andarMenosUtilizado();
 
-            foreach (var _resposta in elevadoresMaisFrequentados)
+            foreach (var elevador in elevadorService.andarMenosUtilizado())
             {
-                Console.WriteLine($"Elevador '{_resposta}' é o mais frequentado. " );
-            }
-            foreach (var _resposta in elevadoresMenosFrequentados)
-            {
-                Console.WriteLine($"Elevador '{_resposta}' é o menos frequentado. ");
+                Console.WriteLine($"Andar '{elevador}' menos utilizado\n");
             }
 
-            foreach (var _resposta in andarMenosUtilizado)
+            foreach (var elevador in elevadorService.elevadorMaisFrequentado())
             {
-                Console.Write($"Andar '{_resposta}' menos utilizado. ");
+                foreach (var periodo in elevadorService.periodoMaiorFluxoElevadorMaisFrequentado())
+                {
+                    Console.WriteLine($"Elevador mais frequentado = '{elevador}'. Maior fluxo ocorre no periodo '{periodo}'\n");
+                }
             }
 
+            string elevadorMenosFrequentado = "", periodoMenor = "";       
+            foreach (var elevador in elevadorService.elevadorMenosFrequentado())
+            {
+                elevadorMenosFrequentado += "'" + elevador.ToString() + "' ";
+            }
+            foreach (var periodo in elevadorService.periodoMenorFluxoElevadorMenosFrequentado())
+            {
+                periodoMenor += "'" + periodo.ToString() + "' ";
+            }
+            Console.WriteLine($"Elevador menos frequentado = {elevadorMenosFrequentado}.  Menor fluxo ocorre no período {periodoMenor}\n");
+            
+           
+
+            foreach (var _resposta in elevadorService.periodoMaiorUtilizacaoConjuntoElevadores())
+            {
+                Console.WriteLine($"Periodo '{_resposta}' tem maior fluxo de utilização dos elevadores. \n");
+            }
+
+            Console.WriteLine("Percentual de uso do elevador A = " + elevadorService.percentualDeUsoElevadorA().ToString("F2") + "%" );
+            Console.WriteLine("Percentual de uso do elevador B = " + elevadorService.percentualDeUsoElevadorB().ToString("F2") + "%" );
+            Console.WriteLine("Percentual de uso do elevador C = " + elevadorService.percentualDeUsoElevadorC().ToString("F2") + "%" );
+            Console.WriteLine("Percentual de uso do elevador D = " + elevadorService.percentualDeUsoElevadorD().ToString("F2") + "%" );
+            Console.WriteLine("Percentual de uso do elevador E = " + elevadorService.percentualDeUsoElevadorE().ToString("F2") + "%" );
+            
+
+            
 
             Console.ReadKey();
         }
