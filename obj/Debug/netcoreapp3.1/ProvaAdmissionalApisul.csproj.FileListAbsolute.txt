@@ -20,7 +20,6 @@ C:\ProvaAdmissionalApisul\bin\Debug\netcoreapp3.1\ProvaAdmissionalApisul.runtime
 C:\ProvaAdmissionalApisul\bin\Debug\netcoreapp3.1\ProvaAdmissionalApisul.dll
 C:\ProvaAdmissionalApisul\bin\Debug\netcoreapp3.1\ProvaAdmissionalApisul.pdb
 C:\ProvaAdmissionalApisul\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
-C:\ProvaAdmissionalApisul\obj\Debug\netcoreapp3.1\ProvaAdmissionalApisul.csprojAssemblyReference.cache
 C:\ProvaAdmissionalApisul\obj\Debug\netcoreapp3.1\ProvaAdmissionalApisul.AssemblyInfoInputs.cache
 C:\ProvaAdmissionalApisul\obj\Debug\netcoreapp3.1\ProvaAdmissionalApisul.AssemblyInfo.cs
 C:\ProvaAdmissionalApisul\obj\Debug\netcoreapp3.1\ProvaAdmissionalApisul.csproj.CoreCompileInputs.cache
@@ -28,3 +27,4 @@ C:\ProvaAdmissionalApisul\obj\Debug\netcoreapp3.1\ProvaAdmissionalApisul.csproj.
 C:\ProvaAdmissionalApisul\obj\Debug\netcoreapp3.1\ProvaAdmissionalApisul.dll
 C:\ProvaAdmissionalApisul\obj\Debug\netcoreapp3.1\ProvaAdmissionalApisul.pdb
 C:\ProvaAdmissionalApisul\obj\Debug\netcoreapp3.1\ProvaAdmissionalApisul.genruntimeconfig.cache
+C:\ProvaAdmissionalApisul\obj\Debug\netcoreapp3.1\ProvaAdmissionalApisul.csprojAssemblyReference.cache

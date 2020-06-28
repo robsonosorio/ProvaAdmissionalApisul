@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-
+using ProvaAdmissionalApisul.Model;
 namespace ProvaAdmissionalApisul.Services
 {
   public interface IElevadorService
